@@ -16,5 +16,10 @@ namespace xadrez_console.Entities
             Tabuleiro = tabuleiro;
             QuantidadeMovimentos = 0;
         }
+
+        public void IncrementarMovimentos()
+        {
+            QuantidadeMovimentos++;
+        }
     }
 }
