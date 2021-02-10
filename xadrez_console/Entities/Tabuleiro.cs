@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using xadrez_console.Exceptions;
 
 namespace xadrez_console.Entities
 {
@@ -17,10 +18,42 @@ namespace xadrez_console.Entities
             Pecas = new Peca[linhas, colunas];
         }
 
-        public void ColocarPeca(Peca p, Posicao pos)
+        public Peca Peca(Posicao posicao)
         {
-            Pecas[pos.Linha, pos.Coluna] = p;
-            p.Posicao = pos;
+            return Pecas[posicao.Linha, posicao.Coluna];
+        }
+
+        public bool ExistePeca(Posicao posicao)
+        {
+            ValidarPosicao(posicao);
+            return Peca(posicao) != null;
+        }
+
+        public void ColocarPeca(Peca peca, Posicao posicao)
+        {
+            if (ExistePeca(posicao))
+            {
+                throw new TabuleiroException("Já existe uma peça nessa posição!");
+            }
+            Pecas[posicao.Linha, posicao.Coluna] = peca;
+            peca.Posicao = posicao;
+        }
+
+        public bool PosicaoValida(Posicao posicao)
+        {
+            if (posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void ValidarPosicao(Posicao posicao)
+        {
+            if (!PosicaoValida(posicao))
+            {
+                throw new TabuleiroException("Posição inválida!");
+            }
         }
     }
 }
