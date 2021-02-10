@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using xadrez_console.Entities.Enums;
+using xadrez_console.Entities.Pecas;
 
 namespace xadrez_console.Entities
 {
