@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using xadrez_console.Entities;
+using xadrez_console.Entities.Enums;
 
 namespace xadrez_console
 {
@@ -11,6 +12,7 @@ namespace xadrez_console
         {
             for (int i = 0; i < tabuleiro.Linhas; i++)
             {
+                Console.Write(8 - i + " ");
                 for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
                     if (tabuleiro.Pecas[i, j] == null)
@@ -19,10 +21,27 @@ namespace xadrez_console
                     }
                     else
                     {
-                        Console.Write(tabuleiro.Pecas[i, j] + " ");
-                    }                    
+                        ImprimirPeca(tabuleiro.Pecas[i, j]);
+                        Console.Write(" ");
+                    }
                 }
                 Console.WriteLine();
+            }
+            Console.WriteLine("  a b c d e f g h");
+        }
+
+        public static void ImprimirPeca(Peca peca)
+        {
+            if (peca.Cor == Cor.Branca)
+            {
+                Console.Write(peca);
+            }
+            else
+            {
+                ConsoleColor consoleColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(peca);
+                Console.ForegroundColor = consoleColor;
             }
         }
     }

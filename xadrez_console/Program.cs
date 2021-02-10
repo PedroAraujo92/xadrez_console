@@ -10,18 +10,17 @@ namespace xadrez_console
         static void Main(string[] args)
         {
             PosicaoXadrez posicaoXadrez = new PosicaoXadrez('c', 7);
-            Console.WriteLine(posicaoXadrez);
-
-            Console.WriteLine(posicaoXadrez.ToPosicao());
+            // Console.WriteLine(posicaoXadrez);
+            // Console.WriteLine(posicaoXadrez.ToPosicao());
 
             Tabuleiro tabuleiro = new Tabuleiro(8, 8);
 
             try
             {
                 tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(0, 0));
-                tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(1, 3));
-                tabuleiro.ColocarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(2, 4));
-                tabuleiro.ColocarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(0, 9));
+                tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Branca), new Posicao(1, 3));
+                tabuleiro.ColocarPeca(new Rei(tabuleiro, Cor.Branca), new Posicao(2, 4));
+                tabuleiro.ColocarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(0, 5));
 
                 Tela.ImprimirTabuleiro(tabuleiro);
             }
