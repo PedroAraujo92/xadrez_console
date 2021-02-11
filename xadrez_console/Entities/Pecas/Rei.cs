@@ -4,7 +4,7 @@ namespace xadrez_console.Entities.Pecas
 {
     class Rei : Peca
     {
-        private PartidaXadrez Partida;
+        public PartidaXadrez Partida { get; private set; }
 
         public Rei(Tabuleiro tabuleiro, Cor cor, PartidaXadrez partida) : base(tabuleiro, cor)
         {
