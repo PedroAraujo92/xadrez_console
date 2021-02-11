@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using xadrez_console.Entities.Enums;
+﻿using xadrez_console.Entities.Enums;
 
 namespace xadrez_console.Entities.Pecas
 {
