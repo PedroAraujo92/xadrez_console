@@ -31,7 +31,7 @@ namespace xadrez_console.Entities
             peca.IncrementarMovimentos();
             Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
             Tabuleiro.ColocarPeca(peca, destino);
-            if(pecaCapturada != null)
+            if (pecaCapturada != null)
             {
                 Capturadas.Add(pecaCapturada);
             }
@@ -43,7 +43,7 @@ namespace xadrez_console.Entities
         {
             Peca peca = Tabuleiro.RetirarPeca(destino);
             peca.DecrementarMovimentos();
-            if(pecaCapturada != null)
+            if (pecaCapturada != null)
             {
                 Tabuleiro.ColocarPeca(pecaCapturada, destino);
                 Capturadas.Remove(pecaCapturada);
@@ -71,8 +71,15 @@ namespace xadrez_console.Entities
                 Xeque = false;
             }
 
-            Turno++;
-            MudaJogador();
+            if (TesteXequeMate(Adversaria(JogadorAtual)))
+            {
+                Terminada = true;
+            }
+            else
+            {
+                Turno++;
+                MudaJogador();
+            }
         }
 
         public void ValidarPosicaoOrigem(Posicao origem)
@@ -116,7 +123,7 @@ namespace xadrez_console.Entities
             HashSet<Peca> pecasAux = new HashSet<Peca>();
             foreach (Peca item in Capturadas)
             {
-                if(item.Cor == cor)
+                if (item.Cor == cor)
                 {
                     pecasAux.Add(item);
                 }
@@ -142,7 +149,7 @@ namespace xadrez_console.Entities
 
         private Cor Adversaria(Cor cor)
         {
-            if(cor == Cor.Branca)
+            if (cor == Cor.Branca)
             {
                 return Cor.Preta;
             }
@@ -166,7 +173,7 @@ namespace xadrez_console.Entities
         public bool EstarEmXeque(Cor cor)
         {
             Peca r = Rei(cor);
-            if(r == null)
+            if (r == null)
             {
                 throw new TabuleiroException("Não tem rei da cor " + cor + " no tabuleiro!");
             }
@@ -174,13 +181,46 @@ namespace xadrez_console.Entities
             foreach (Peca item in PecasEmJogo(Adversaria(cor)))
             {
                 bool[,] matriz = item.MovimentosPossiveis();
-                if(matriz[r.Posicao.Linha, r.Posicao.Coluna])
+                if (matriz[r.Posicao.Linha, r.Posicao.Coluna])
                 {
                     return true;
                 }
             }
 
             return false;
+        }
+
+        public bool TesteXequeMate(Cor cor)
+        {
+            if (!EstarEmXeque(cor))
+            {
+                return false;
+            }
+
+            foreach (Peca item in PecasEmJogo(cor))
+            {
+                bool[,] matriz = item.MovimentosPossiveis();
+                for (int i = 0; i < Tabuleiro.Linhas; i++)
+                {
+                    for (int j = 0; j < Tabuleiro.Colunas; j++)
+                    {
+                        if (matriz[i, j])
+                        {
+                            Posicao origem = item.Posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = EstarEmXeque(cor);
+                            DesfazMovimento(origem, destino, pecaCapturada);
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void ColocarNovaPeca(char coluna, int linha, Peca peca)
