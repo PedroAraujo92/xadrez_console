@@ -1,6 +1,5 @@
 ﻿using System;
 using xadrez_console.Entities;
-using xadrez_console.Entities.Enums;
 using xadrez_console.Exceptions;
 
 namespace xadrez_console

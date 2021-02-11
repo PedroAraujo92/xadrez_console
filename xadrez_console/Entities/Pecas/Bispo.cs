@@ -35,7 +35,7 @@ namespace xadrez_console.Entities.Pecas
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna - 1);
+                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna - 1);
             }
 
             //NE
@@ -47,7 +47,7 @@ namespace xadrez_console.Entities.Pecas
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
+                posicao.DefinirValores(posicao.Linha - 1, posicao.Coluna + 1);
             }
 
             //SO
@@ -59,7 +59,7 @@ namespace xadrez_console.Entities.Pecas
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
+                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna - 1);
             }
 
             //SE
@@ -71,7 +71,7 @@ namespace xadrez_console.Entities.Pecas
                 {
                     break;
                 }
-                posicao.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
+                posicao.DefinirValores(posicao.Linha + 1, posicao.Coluna + 1);
             }
 
             return matriz;
